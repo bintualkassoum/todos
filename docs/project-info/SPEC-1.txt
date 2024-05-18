@@ -1,0 +1,111 @@
+= SPEC-1: AI To-Do List App
+:sectnums:
+:toc:
+
+== Background
+
+The purpose of this project is to create a simple, minimal, and aesthetic AI to-do list application. The app will allow users to either write in a WYSIWYG editor or upload text of their to-dos. Using the MultiOn Agent API, users can delegate tasks to the AI agent for execution. The primary goal is to create an interface wrapper with to-do list functionality integrated with the MultiOn Agent API.
+
+== Requirements
+
+*Must Have*
+- WYSIWYG editor for task input (TipTap preferred)
+- Ability to upload text files with to-dos
+- Functionality to delegate tasks to AI
+- Schedule tasks for immediate or future execution
+- Notifications for task completion and list completion
+
+*Should Have*
+- User preference settings for notifications
+- Real-time collaboration functionality with team members and AI
+- User-friendly and minimalistic design
+
+*Could Have*
+- Voice transcription for to-do input
+- Integration with calendar apps
+
+*Won't Have (for MVP)*
+- Advanced project management features
+
+== Method
+
+The AI To-Do List App will be built using the following technologies:
+- **Next.js/React.js** for the frontend framework
+- **DaisyUI (Tailwind CSS)** for styling
+- **Supabase** for backend and database functionalities
+- **TipTap** for the WYSIWYG editor
+- **MultiOn Agent API** for task delegation to AI
+- **GitHub** for version control and collaboration
+
+=== Architecture Design
+
+[plantuml]
+----
+@startuml
+skinparam componentStyle rectangle
+
+package "Frontend" {
+  [Next.js/React.js]
+  [TipTap WYSIWYG Editor]
+}
+
+package "Backend" {
+  [Supabase]
+}
+
+package "AI Integration" {
+  [MultiOn Agent API]
+}
+
+[User] --> [Next.js/React.js]
+[Next.js/React.js] --> [TipTap WYSIWYG Editor]
+[Next.js/React.js] --> [Supabase]
+[Next.js/React.js] --> [MultiOn Agent API]
+
+@enduml
+----
+
+=== Component Breakdown
+
+1. **Frontend (Next.js/React.js)**
+   - **Task Input**: TipTap WYSIWYG editor integrated for user to input tasks.
+   - **Task Upload**: Feature to upload text files containing to-dos.
+   - **Task Delegation**: Interface to assign tasks to either the user or AI.
+   - **Scheduling**: Option to schedule tasks for immediate or future execution.
+   - **Notifications**: User preference settings for notifications.
+
+2. **Backend (Supabase)**
+   - **Database**: Store tasks, user preferences, and notification settings.
+   - **Authentication**: User authentication and management.
+
+3. **AI Integration (MultiOn Agent API)**
+   - **Task Execution**: API calls to delegate tasks to the AI.
+   - **Status Updates**: Retrieve status updates from the AI regarding task completion.
+
+=== Database Schema
+
+```sql
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL
+);
+
+CREATE TABLE tasks (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  assigned_to VARCHAR(50) NOT NULL, -- 'user' or 'ai'
+  due_time TIMESTAMP,
+  status VARCHAR(50) NOT NULL -- 'pending', 'in_progress', 'completed'
+);
+
+CREATE TABLE notifications (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  task_id UUID REFERENCES tasks(id),
+  notification_time TIMESTAMP,
+  notification_type VARCHAR(50) -- 'task_completed', 'list_completed'
+);

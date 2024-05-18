@@ -1,0 +1,42 @@
+ai-todo-app/
+│
+├── public/                    # Static files (images, fonts, etc.)
+│
+├── src/
+│   ├── components/            # Reusable UI components
+│   │   ├── Editor.js          # TipTap WYSIWYG editor component
+│   │   ├── TaskList.js        # Component to display list of tasks
+│   │   ├── TaskItem.js        # Individual task item component
+│   │   └── Notification.js    # Notification component
+│   │
+│   ├── pages/                 # Next.js pages
+│   │   ├── api/               # API routes
+│   │   │   ├── tasks.js       # Task management API endpoint
+│   │   │   └── notifications.js # Notification management API endpoint
+│   │   ├── index.js           # Main page
+│   │   ├── login.js           # User login page
+│   │   ├── register.js        # User registration page
+│   │   └── dashboard.js       # Dashboard after user login
+│   │
+│   ├── hooks/                 # Custom React hooks
+│   │   └── useTasks.js        # Hook for managing tasks state
+│   │
+│   ├── styles/                # CSS and Tailwind styles
+│   │   └── globals.css        # Global styles
+│   │
+│   ├── utils/                 # Utility functions
+│   │   ├── api.js             # Functions to interact with the backend
+│   │   └── notifications.js   # Notification utility functions
+│   │
+│   └── context/               # Context providers
+│       ├── AuthContext.js     # Authentication context
+│       └── TaskContext.js     # Task management context
+│
+├── supabase/                  # Supabase configuration
+│   └── schema.sql             # SQL schema for database setup
+│
+├── .gitignore                 # Git ignore file
+├── next.config.js             # Next.js configuration
+├── tailwind.config.js         # Tailwind CSS configuration
+├── README.md                  # Project documentation
+└── package.json               # Project dependencies and scripts
