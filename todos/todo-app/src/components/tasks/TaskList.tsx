@@ -1,4 +1,4 @@
-// src/components/TaskList.tsx
+// src/components/tasks/TaskList.tsx
 
 import React from 'react';
 import TaskItem from './TaskItem';

@@ -1,4 +1,4 @@
-// src/components/TaskItem.tsx
+// src/components/tasks/TaskItem.tsx
 
 import React from 'react';
 
